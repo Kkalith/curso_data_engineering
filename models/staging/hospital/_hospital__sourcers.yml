@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: hospital
+    description: ""
+    database: alumno30_dev_bronze_db
+    tables:
+      - name: appointments
+        description: ""
+      - name: billing
+        description: ""
+      - name: doctors
+        description: ""
+      - name: patients
+        description: ""
+      - name: treatments
+        description: ""
