@@ -10,17 +10,19 @@ renamed as (
 
     select
         md5(appointment_id) as id_appointment,
-        md5(patient_id) as id_patient,
-        md5(doctor_id) as id_doctor,
         appointment_date as date_appointment,
         appointment_time as time_appointment,
-        reason_for_visit,
-        status,
         check_in_time,
         check_out_time,
-        wait_time_minutes,
-        duration_minutes,
-        cancel_reason
+        NULLIF(wait_time_minutes, 0) as wait_time_minutes, -- queremos que sea null para no interferir en nuestras medias
+        NULLIF(duration_minutes, 0) as duration_minutes, -- queremos que sea null los 0 para no interferir en nuestras medias
+        NULLIF((wait_time_minutes)/60,0) as wait_time_hours, -- tiempo esperado en horas
+        NULLIF((duration_minutes)/60,0) as duration_hours, -- duración cita en horas
+        md5(cancel_reason) as id_cancel_reason,
+        md5(reason_for_visit) as id_reason_for_visit,
+        md5(status) as id_status_appointment,
+        md5(patient_id) as id_patient,
+        md5(doctor_id) as id_doctor
 
     from src_appointments
 
