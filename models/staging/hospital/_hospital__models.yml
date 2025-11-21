@@ -1,0 +1,389 @@
+version: 2
+
+sources:
+  - name: hospital
+    description: ""
+    tables:
+      - name: stg_hospital__allergies
+        description: ""
+        columns:
+          - name: patient_allergy_id
+            data_type: varchar
+            description: ""
+          - name: patient_id
+            data_type: varchar
+            description: ""
+          - name: allergy_name
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__appointments
+        description: ""
+        columns:
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: date_appointment
+            data_type: date
+            description: ""
+          - name: time_appointment
+            data_type: time
+            description: ""
+          - name: check_in_time
+            data_type: time
+            description: ""
+          - name: check_out_time
+            data_type: time
+            description: ""
+          - name: wait_time_minutes
+            data_type: number
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: wait_time_hours
+            data_type: number
+            description: ""
+          - name: duration_hours
+            data_type: number
+            description: ""
+          - name: id_cancel_reason
+            data_type: varchar
+            description: ""
+          - name: id_reason_for_visit
+            data_type: varchar
+            description: ""
+          - name: id_status_appointment
+            data_type: varchar
+            description: ""
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: id_doctor
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__available_days
+        description: ""
+        columns:
+          - name: original_range
+            data_type: varchar
+            description: ""
+          - name: full_day_name
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__billing
+        description: ""
+        columns:
+          - name: id_bill
+            data_type: varchar
+            description: ""
+          - name: bill_date
+            data_type: date
+            description: ""
+          - name: amount_dolars
+            data_type: number
+            description: ""
+          - name: payment_status
+            data_type: varchar
+            description: ""
+          - name: payment_date
+            data_type: date
+            description: ""
+          - name: due_date
+            data_type: date
+            description: ""
+          - name: payments_days
+            data_type: number
+            description: ""
+          - name: late_fee_dolars
+            data_type: number
+            description: ""
+          - name: insurance_coverage_amount
+            data_type: number
+            description: ""
+          - name: patient_payment_amount
+            data_type: number
+            description: ""
+          - name: diference_patient_insurance
+            data_type: number
+            description: ""
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: id_treatment
+            data_type: varchar
+            description: ""
+          - name: id_payment_method
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__blood_type
+        description: ""
+        columns:
+          - name: id_blood_type
+            data_type: varchar
+            description: ""
+          - name: blood_type
+            data_type: varchar
+            description: ""
+          - name: blood_group
+            data_type: varchar
+            description: ""
+          - name: rh_factor
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__cancel_reason
+        description: ""
+        columns:
+          - name: id_cancel_reason
+            data_type: varchar
+            description: ""
+          - name: cancel_reason
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__chronic_conditions
+        description: ""
+        columns:
+          - name: patient_condition_id
+            data_type: varchar
+            description: ""
+          - name: patient_id
+            data_type: varchar
+            description: ""
+          - name: condition_name
+            data_type: varchar
+            description: ""
+          - name: loaded_at
+            data_type: timestamp_ltz
+            description: ""
+
+      - name: stg_hospital__current_medications
+        description: ""
+        columns:
+          - name: patient_medication_id
+            data_type: varchar
+            description: ""
+          - name: patient_id
+            data_type: varchar
+            description: ""
+          - name: medication_name
+            data_type: varchar
+            description: ""
+          - name: loaded_at
+            data_type: timestamp_ltz
+            description: ""
+
+      - name: stg_hospital__doctors
+        description: ""
+        columns:
+          - name: id_doctor
+            data_type: varchar
+            description: ""
+          - name: first_name
+            data_type: varchar
+            description: ""
+          - name: last_name
+            data_type: varchar
+            description: ""
+          - name: last_name_2
+            data_type: varchar
+            description: ""
+          - name: phone_number
+            data_type: varchar
+            description: ""
+          - name: years_experience
+            data_type: number
+            description: ""
+          - name: hospital_branch
+            data_type: varchar
+            description: ""
+          - name: email
+            data_type: varchar
+            description: ""
+          - name: consultation_fee
+            data_type: number
+            description: ""
+          - name: available_days
+            data_type: varchar
+            description: ""
+          - name: office_room
+            data_type: varchar
+            description: ""
+          - name: id_specialization
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__hospital_branch
+        description: ""
+        columns:
+          - name: id_hospital_branch
+            data_type: varchar
+            description: ""
+          - name: hospital_branch
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__insurance_provider
+        description: ""
+        columns:
+          - name: id_insurance_provider
+            data_type: varchar
+            description: ""
+          - name: insurance_provider
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__patients
+        description: ""
+        columns:
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: first_name
+            data_type: varchar
+            description: ""
+          - name: last_name
+            data_type: varchar
+            description: ""
+          - name: last_name_2
+            data_type: varchar
+            description: ""
+          - name: gender
+            data_type: varchar
+            description: ""
+          - name: date_of_birth
+            data_type: date
+            description: ""
+          - name: age
+            data_type: number
+            description: ""
+          - name: contact_number
+            data_type: varchar
+            description: ""
+          - name: address
+            data_type: varchar
+            description: ""
+          - name: street_name
+            data_type: varchar
+            description: ""
+          - name: registration_date
+            data_type: date
+            description: ""
+          - name: insurance_number
+            data_type: varchar
+            description: ""
+          - name: email
+            data_type: varchar
+            description: ""
+          - name: allergies
+            data_type: varchar
+            description: ""
+          - name: chronic_conditions
+            data_type: varchar
+            description: ""
+          - name: current_medications
+            data_type: varchar
+            description: ""
+          - name: medical_history_summary
+            data_type: varchar
+            description: ""
+          - name: id_insurance_provider
+            data_type: varchar
+            description: ""
+          - name: id_blood_type
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__payment_method
+        description: ""
+        columns:
+          - name: id_payment_method
+            data_type: varchar
+            description: ""
+          - name: payment_method
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__reason_for_visit
+        description: ""
+        columns:
+          - name: id_reason_for_visit
+            data_type: varchar
+            description: ""
+          - name: reason_for_visit
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__specialization
+        description: ""
+        columns:
+          - name: id_specialization
+            data_type: varchar
+            description: ""
+          - name: specialization
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__status_appointment
+        description: ""
+        columns:
+          - name: id_status_appointment
+            data_type: varchar
+            description: ""
+          - name: status
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__treatment_type
+        description: ""
+        columns:
+          - name: id_treatment_type
+            data_type: varchar
+            description: ""
+          - name: treatment_type
+            data_type: varchar
+            description: ""
+
+      - name: stg_hospital__treatments
+        description: ""
+        columns:
+          - name: id_treatment
+            data_type: varchar
+            description: ""
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: description
+            data_type: varchar
+            description: ""
+          - name: cost_dolars
+            data_type: number
+            description: ""
+          - name: treatment_date
+            data_type: date
+            description: ""
+          - name: treatment_outcome
+            data_type: varchar
+            description: ""
+          - name: medications_administered
+            data_type: varchar
+            description: ""
+          - name: complications
+            data_type: varchar
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: equipment_used
+            data_type: varchar
+            description: ""
+          - name: risk_level
+            data_type: varchar
+            description: ""
+          - name: id_treatment_type
+            data_type: varchar
+            description: ""

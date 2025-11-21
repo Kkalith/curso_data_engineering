@@ -2,16 +2,283 @@ version: 2
 
 sources:
   - name: hospital
-    description: ""
+    description: "Synthetic hospital dataset containing information on patients, doctors, appointments, treatments, and billing. Designed for analytics, machine learning, and data engineering practice."
     database: alumno30_dev_bronze_db
     tables:
       - name: appointments
-        description: ""
+        description: "Records of scheduled appointments between patients and doctors, including timing, status, duration, and operational details."
+        columns:
+          - name: appointment_id
+            data_type: varchar
+            description: "Unique identifier for the appointment."
+            data_tests:
+              - unique
+              - not_null
+          - name: patient_id
+            data_type: varchar
+            description: "Identifier of the patient attending the appointment."
+            data_tests:
+              - not_null
+          - name: doctor_id
+            data_type: varchar
+            description: "Identifier of the doctor assigned to the appointment."
+            data_tests:
+              - not_null
+          - name: appointment_date
+            data_type: date
+            description: "Date on which the appointment is scheduled."
+          - name: appointment_time
+            data_type: time
+            description: "Scheduled time of the appointment."
+          - name: reason_for_visit
+            data_type: varchar
+            description: "Reason or purpose for the medical visit."
+            data_tests:
+              - accepted_values:
+                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                    values:
+                      [
+                        "Consultation",
+                        "Emergency",
+                        "Follow-up",
+                        "Therapy",
+                        "Checkup",
+                      ]
+          - name: status
+            data_type: varchar
+            description: "Current status of the appointment (Scheduled, Completed, Cancelled)."
+            data_tests:
+              - accepted_values:
+                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                    values: ["No-show", "Completed", "Scheduled", "Cancelled"]
+          - name: check_in_time
+            data_type: time
+            description: "Time when the patient checked in upon arrival."
+          - name: check_out_time
+            data_type: time
+            description: "Time when the patient completed the appointment."
+          - name: wait_time_minutes
+            data_type: number
+            description: "Minutes the patient waited before being attended."
+          - name: duration_minutes
+            data_type: number
+            description: "Total duration of the appointment in minutes."
+          - name: cancel_reason
+            data_type: varchar
+            description: "Reason for cancellation of the appointment, if applicable."
+            data_tests:
+              - accepted_values:
+                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                    values:
+                      [
+                        "Insurance issue",
+                        "Scheduling error",
+                        "Weather problems",
+                        "None",
+                        "Doctor unavailable",
+                        "Patient sick",
+                        "Emergency conflict",
+                        "Transportation issue",
+                      ]
+
+
       - name: billing
-        description: ""
+        description: "Billing information associated with treatments, including amounts, payment dates, insurance coverage, and payment status."
+        columns:
+          - name: bill_id
+            data_type: varchar
+            description: "Unique identifier for the bill."
+            data_tests:
+              - unique
+              - not_null
+          - name: patient_id
+            data_type: varchar
+            description: "Identifier of the patient being billed."
+            data_tests:
+              - not_null
+          - name: treatment_id
+            data_type: varchar
+            description: "Identifier of the treatment associated with the bill."
+            data_tests:
+              - not_null
+          - name: bill_date
+            data_type: date
+            description: "Date when the bill was generated."
+          - name: amount
+            data_type: number
+            description: "Total amount billed before insurance or adjustments."
+            data_tests:
+              - positive_values
+          - name: payment_method
+            data_type: varchar
+            description: "Payment method used (Cash, Card, Insurance)."
+            data_tests:
+              - accepted_values:
+                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                    values: ["Cash", "Credit Card", "Insurance"]
+          - name: payment_status
+            data_type: varchar
+            description: "Status of the payment (Paid, Pending, Failed)."
+            data_tests:
+              - accepted_values:
+                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                    values: ["Pending", "Paid", "Failed"]
+          - name: payment_date
+            data_type: date
+            description: "Date when the payment was completed."
+          - name: due_date
+            data_type: date
+            description: "Deadline for completing the payment."
+          - name: late_fee
+            data_type: number
+            data_tests:
+              - positive_values
+            description: "Additional fee applied for late payments, if any."
+          - name: insurance_coverage_amount
+            data_type: number
+            description: "Amount covered by the insurance provider."
+            data_tests:
+              - positive_values
+          - name: patient_payment_amount
+            data_type: number
+            description: "Amount paid directly by the patient."
+            data_tests:
+              - positive_values
+
       - name: doctors
-        description: ""
+        description: "Information about medical staff, their specialties, experience, and availability."
+        columns:
+          - name: doctor_id
+            data_type: varchar
+            description: "Unique identifier for the doctor."
+            data_tests:
+              - unique
+              - not_null
+          - name: first_name
+            data_type: varchar
+            description: "Doctor's first name."
+          - name: last_name
+            data_type: varchar
+            description: "Doctor's last name."
+          - name: specialization
+            data_type: varchar
+            description: "Medical specialty of the doctor."
+          - name: phone_number
+            data_type: varchar
+            description: "Doctor's contact phone number."
+          - name: years_experience
+            data_type: number
+            description: "Total years of medical experience."
+            data_tests:
+              - positive_values
+          - name: hospital_branch
+            data_type: varchar
+            description: "Hospital branch where the doctor is based."
+          - name: email
+            data_type: varchar
+            description: "Doctor's official email address."
+            data_tests:
+              - not_null
+          - name: consultation_fee
+            data_type: number
+            description: "Standard consultation fee charged by the doctor."
+            data_tests:
+              - positive_values
+          - name: available_days
+            data_type: varchar
+            description: "Days of the week when the doctor is available."
+          - name: office_room
+            data_type: varchar
+            description: "Room or office number assigned to the doctor."
+
       - name: patients
-        description: ""
+        description: "Demographic, contact, and basic medical information for patients registered in the hospital."
+        columns:
+          - name: patient_id
+            data_type: varchar
+            description: "Unique identifier for the patient."
+          - name: first_name
+            data_type: varchar
+            description: "Patient's first name."
+          - name: last_name
+            data_type: varchar
+            description: "Patient's last name."
+          - name: gender
+            data_type: varchar
+            description: "Patient's gender (M/F)."
+          - name: date_of_birth
+            data_type: date
+            description: "Patient's date of birth."
+          - name: contact_number
+            data_type: varchar
+            description: "Patient's contact phone number."
+          - name: address
+            data_type: varchar
+            description: "Home address of the patient."
+          - name: registration_date
+            data_type: date
+            description: "Date when the patient registered at the hospital."
+          - name: insurance_provider
+            data_type: varchar
+            description: "Name of the patient's insurance provider."
+          - name: insurance_number
+            data_type: varchar
+            description: "Insurance policy number."
+          - name: email
+            data_type: varchar
+            description: "Patient's email address."
+          - name: blood_type
+            data_type: varchar
+            description: "Patient's blood type."
+          - name: allergies
+            data_type: varchar
+            description: "Known allergies reported by the patient."
+          - name: chronic_conditions
+            data_type: varchar
+            description: "Chronic medical conditions documented for the patient."
+          - name: current_medications
+            data_type: varchar
+            description: "Medications the patient is currently taking."
+          - name: medical_history_summary
+            data_type: varchar
+            description: "Summary of the patient's medical history."
+
       - name: treatments
-        description: ""
+        description: "Detailed information on treatments administered during medical appointments, including cost, outcome, and resources used."
+        columns:
+          - name: treatment_id
+            data_type: varchar
+            description: "Unique identifier for the treatment."
+          - name: appointment_id
+            data_type: varchar
+            description: "Identifier of the appointment associated with the treatment."
+          - name: treatment_type
+            data_type: varchar
+            description: "Type of treatment performed (e.g., MRI, X-ray, consultation)."
+          - name: description
+            data_type: varchar
+            description: "Additional notes or description of the treatment."
+          - name: cost
+            data_type: number
+            description: "Cost of the treatment before insurance or adjustments."
+          - name: treatment_date
+            data_type: date
+            description: "Date when the treatment was performed."
+          - name: treatment_outcome
+            data_type: varchar
+            description: "Outcome or result of the treatment for the patient."
+          - name: medications_administered
+            data_type: varchar
+            description: "Medications administered as part of the treatment."
+          - name: complications
+            data_type: varchar
+            description: "Complications that occurred during the treatment, if any."
+          - name: duration_minutes
+            data_type: number
+            description: "Duration of the treatment in minutes."
+          - name: equipment_used
+            data_type: varchar
+            description: "Medical equipment or tools used during the treatment."
+          - name: risk_level
+            data_type: varchar
+            description: "Risk level associated with the treatment (low, medium, high)."
