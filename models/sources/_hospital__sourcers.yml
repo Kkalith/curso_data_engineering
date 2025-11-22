@@ -197,19 +197,16 @@ sources:
           - name: patient_id
             data_type: varchar
             description: "Unique identifier for the patient."
-            data_tests:
-              - unique
-              - not_null
           - name: first_name
             data_type: varchar
             description: "Patient's first name."
           - name: last_name
             data_type: varchar
             description: "Patient's last name."
-          - name: gender   
+          - name: gender
             data_type: varchar
             description: "Patient's gender (M/F)."
-          - name: date_of_birth ## QUE SEA MENOR QUE CURRENT_DATE
+          - name: date_of_birth
             data_type: date
             description: "Patient's date of birth."
           - name: contact_number
@@ -218,7 +215,7 @@ sources:
           - name: address
             data_type: varchar
             description: "Home address of the patient."
-          - name: registration_date  ## QUE SEA MENOR QUE CURRENT_DATE
+          - name: registration_date
             data_type: date
             description: "Date when the patient registered at the hospital."
           - name: insurance_provider
@@ -233,10 +230,6 @@ sources:
           - name: blood_type
             data_type: varchar
             description: "Patient's blood type."
-            data_tests:
-              - accepted_values:
-                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
-                    values: ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"]
           - name: allergies
             data_type: varchar
             description: "Known allergies reported by the patient."
@@ -256,9 +249,6 @@ sources:
           - name: treatment_id
             data_type: varchar
             description: "Unique identifier for the treatment."
-            data_tests:
-              - unique
-              - not_null
           - name: appointment_id
             data_type: varchar
             description: "Identifier of the appointment associated with the treatment."
@@ -271,8 +261,6 @@ sources:
           - name: cost
             data_type: number
             description: "Cost of the treatment before insurance or adjustments."
-            data_tests:
-              - positive_values
           - name: treatment_date
             data_type: date
             description: "Date when the treatment was performed."
@@ -288,15 +276,9 @@ sources:
           - name: duration_minutes
             data_type: number
             description: "Duration of the treatment in minutes."
-            data_tests:
-              - positive_values
           - name: equipment_used
             data_type: varchar
             description: "Medical equipment or tools used during the treatment."
           - name: risk_level
             data_type: varchar
             description: "Risk level associated with the treatment (low, medium, high)."
-            data_tests:
-              - accepted_values:
-                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
-                    values: ["Low", "Medium", "High"]

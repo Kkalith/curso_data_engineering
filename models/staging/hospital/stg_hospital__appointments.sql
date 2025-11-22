@@ -14,13 +14,17 @@ renamed as (
         appointment_time as time_appointment,
         check_in_time,
         check_out_time,
-        wait_time_minutes as wait_time_minutes, -- queremos que sea null para no interferir en nuestras medias
-        duration_minutes as duration_minutes, -- queremos que sea null los 0 para no interferir en nuestras medias
-        wait_time_minutes/60 as wait_time_hours, -- tiempo esperado en horas
-        duration_minutes/60 as duration_hours, -- duración cita en horas
-        md5(cancel_reason) as id_cancel_reason,
-        md5(reason_for_visit) as id_reason_for_visit,
-        md5(status) as id_status_appointment,
+        wait_time_minutes::integer as wait_time_minutes,
+        duration_minutes::integer as duration_minutes,
+        (wait_time_minutes/60)::numeric as wait_time_hours, -- tiempo esperado en horas
+        (duration_minutes/60):: numeric as duration_hours, -- duración cita en horas
+        case
+        when check_in_time is null then 'The patient did not show up to the appointment'
+        else 'The patient attended the appointment'
+        end as show_up_message,
+        md5(lower(trim(cancel_reason))) as id_cancel_reason,
+        md5(lower(trim(reason_for_visit))) as id_reason_for_visit,
+        md5(lower(trim(status))) as id_status_appointment,
         md5(patient_id) as id_patient,
         md5(doctor_id) as id_doctor
 

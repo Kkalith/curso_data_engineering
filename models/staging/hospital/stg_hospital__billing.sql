@@ -12,7 +12,8 @@ renamed as (
         md5(bill_id) as id_bill,
         bill_date,
         amount as amount_dolars,
-        payment_status, -- normalizar??
+        lower(trim(payment_status)), -- normalizar??
+        {{ dbt_utils.generate_surrogate_key(['payment_status']) }} as id_payment_status,
         payment_date,
         due_date, -- fecha vencimiento
         DATEDIFF(day, payment_date, due_date) AS payments_days, -- fecha de retrado entre pago y fecha vencimiento

@@ -16,7 +16,8 @@ expanded_allergies as (
 )
 
 select
-    md5(patient_id || allergy_name) as patient_allergy_id,
+    md5(cast(patient_id as string) || cast(allergy_name as string)) as patient_allergy_id
+,
     patient_id,
     allergy_name
 from expanded_allergies
