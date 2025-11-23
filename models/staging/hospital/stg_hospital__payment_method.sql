@@ -9,7 +9,7 @@ src_payment_method as (
 renamed as (
 
     select distinct
-        md5(payment_method) as id_payment_method,
+        {{ dbt_utils.generate_surrogate_key(['payment_method']) }} as id_payment_method,
         payment_method
 
     from src_payment_method

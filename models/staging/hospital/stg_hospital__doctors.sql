@@ -12,7 +12,6 @@ renamed as (
         {{ dbt_utils.generate_surrogate_key(['doctor_id']) }} as id_doctor,
         first_name,
         last_name,
-        NULL AS last_name_2,
         phone_number,
         years_experience,
         email,

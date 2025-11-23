@@ -9,7 +9,7 @@ src_cancel_reason as (
 renamed as (
 
     select distinct
-        md5(cancel_reason) as id_cancel_reason,
+        {{ dbt_utils.generate_surrogate_key(['cancel_reason']) }} as id_cancel_reason,
         {{ clean_string('cancel_reason') }} as cancel_reason,
                 CASE 
             WHEN {{ clean_string('cancel_reason') }} IS NULL OR {{ clean_string('cancel_reason') }} = 'none' THEN 'did not cancel the appointment'

@@ -6,7 +6,7 @@ src_blood_type as (
 
 renamed as (
     select distinct
-        md5(blood_type) as id_blood_type,
+        {{ dbt_utils.generate_surrogate_key(['blood_type']) }} as id_blood_type,
         blood_type,
         case 
             when blood_type like 'A%' then 'A'
