@@ -1,4 +1,3 @@
-
 with src_patients as (
     select 
         patient_id,
@@ -7,17 +6,16 @@ with src_patients as (
     where current_medications is not null and current_medications != 'None'
 ),
 
-expanded_medications as (
+expanded_current_medications as (
     select
         patient_id,
-        trim(value) as medication_name
+        trim(value) as current_medications
     from src_patients,
     lateral split_to_table(current_medications, ',')
 )
 
 select
-    md5(patient_id || medication_name) as patient_medication_id,
-    patient_id,
-    medication_name,
-    current_timestamp() as loaded_at
-from expanded_medications
+    {{ dbt_utils.generate_surrogate_key(['patient_id','current_medications']) }} as patient_current_medications,
+    {{ dbt_utils.generate_surrogate_key(['patient_id']) }} as id_patient,
+    current_medications
+from expanded_current_medications

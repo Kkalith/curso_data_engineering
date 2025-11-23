@@ -9,11 +9,10 @@ src_patients as (
 renamed as (
 
     select
-        md5(patient_id) as id_patient,
-        first_name,
-        last_name,
-        NULL AS last_name_2,
-        gender, -- normalizar?
+        {{ dbt_utils.generate_surrogate_key(['patient_id']) }} as id_patient,
+        first_name, --castear
+        last_name, --castear
+        gender, --castear
         date_of_birth,
         floor(datediff(month, date_of_birth, current_date()) / 12) as age,
         contact_number,
@@ -22,12 +21,11 @@ renamed as (
         registration_date,
         insurance_number,
         email,
-        allergies,
-        chronic_conditions,
-        current_medications,
-        medical_history_summary,
-        md5(insurance_provider) as id_insurance_provider,
-        md5(blood_type) as id_blood_type
+        chronic_conditions, --MD5
+        current_medications, --MD5
+        medical_history_summary::TEXT AS medical_history_summary,
+       {{ dbt_utils.generate_surrogate_key(['insurance_provider']) }} as id_insurance_provider,
+        {{ dbt_utils.generate_surrogate_key(['blood_type']) }} as id_blood_type
 
     from src_patients
 

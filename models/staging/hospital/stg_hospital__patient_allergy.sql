@@ -16,8 +16,7 @@ expanded_allergies as (
 )
 
 select
-    md5(cast(patient_id as string) || cast(allergy_name as string)) as patient_allergy_id
-,
-    patient_id,
+    {{ dbt_utils.generate_surrogate_key(['patient_id','allergy_name']) }} as patient_allergy_id,
+    {{ dbt_utils.generate_surrogate_key(['patient_id']) }} as id_patient,
     allergy_name
 from expanded_allergies

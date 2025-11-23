@@ -37,9 +37,4 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   staging:
-    +materialized: table
-
-  marts:
-    +database: ALUMNO30_DEV_GOLD_DB
-    +schema: MARTS
-    +materialized: table
+    +materialized: view

@@ -9,8 +9,7 @@ source as (
 renamed as (
 
     select
-        md5(treatment_id) as id_treatment,
-        md5(appointment_id) as id_appointment,
+        {{ dbt_utils.generate_surrogate_key(['treatment_id']) }} as id_treatment,
         description,
         cost as cost_dolars,
         treatment_date,
@@ -20,7 +19,8 @@ renamed as (
         duration_minutes,
         equipment_used,
         risk_level,
-        md5(treatment_type) as id_treatment_type
+        {{ dbt_utils.generate_surrogate_key(['appointment_id']) }} as id_appointment,
+        {{ dbt_utils.generate_surrogate_key(['treatment_type']) }} as id_treatment_type
 
     from source
 

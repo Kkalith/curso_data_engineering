@@ -9,7 +9,7 @@ src_reason_for_visit as (
 renamed as (
 
     select distinct
-        md5(reason_for_visit) as id_reason_for_visit,
+        {{ dbt_utils.generate_surrogate_key(['reason_for_visit']) }} as id_reason_for_visit,
        {{ clean_string('reason_for_visit') }} as reason_for_visit,
        CASE 
             WHEN {{ clean_string('reason_for_visit') }} IN ('emergency') THEN 'urgent'

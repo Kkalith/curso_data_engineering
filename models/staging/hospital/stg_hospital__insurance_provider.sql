@@ -9,7 +9,7 @@ src_insurance_provider as (
 renamed as (
 
     select distinct
-        md5(insurance_provider) as id_insurance_provider,
+        {{ dbt_utils.generate_surrogate_key(['insurance_provider']) }} as id_insurance_provider,
         insurance_provider
 
     from src_insurance_provider

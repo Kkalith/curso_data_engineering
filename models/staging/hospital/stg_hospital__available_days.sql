@@ -1,5 +1,5 @@
 with src_available_days as (
-    select distinct available_days 
+    select distinct available_days, 
     from {{ source('hospital', 'doctors') }}
     where available_days is not null
 ),
@@ -42,6 +42,7 @@ categorized_ranges as (
 final_expanded as (
     -- Para rangos continuos (ej: "Mon-Thu")
     select
+
         cr.original_range,
         dm.day_name as full_day_name
     from categorized_ranges cr
@@ -74,7 +75,8 @@ final_expanded as (
 )
 
 select 
-    original_range,
+    md5(original_range || '-' || full_day_name) as id_surrogate,
+    {{ dbt_utils.generate_surrogate_key(['original_range']) }} as id_available_days,
     full_day_name
 from final_expanded
 order by original_range, 
