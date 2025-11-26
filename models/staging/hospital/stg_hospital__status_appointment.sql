@@ -12,12 +12,12 @@ renamed AS (
         status,
 
         CASE
-            WHEN lower(status) IN ('no-show', 'cancelled') 
-                THEN 'missed appointment'
-            WHEN lower(status) = 'completed' 
-                THEN 'attended appointment'
-            WHEN lower(status) = 'scheduled' 
-                THEN 'upcoming appointment'
+            WHEN status IN ('No-show', 'Cancelled') 
+                THEN 'Missed appointment'
+            WHEN status = 'Completed' 
+                THEN 'Attended appointment'
+            WHEN status = 'Scheduled' 
+                THEN 'Upcoming appointment'
             ELSE 'unknown'
         END AS appointment_category
 

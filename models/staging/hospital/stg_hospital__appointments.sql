@@ -12,13 +12,15 @@ renamed as (
         {{ dbt_utils.generate_surrogate_key(['appointment_id']) }} as id_appointment,
         appointment_date as date_appointment, 
         appointment_time as time_appointment,
-        check_in_time,
-        check_out_time, 
         timestamp_from_parts(date_appointment, time_appointment) as appointment_datetime,
+        check_in_time,
+        timestamp_from_parts(date_appointment, check_in_time) as appointment_check_in_time,
+        check_out_time, 
+        timestamp_from_parts(date_appointment, check_out_time) as appointment_check_out_time,
         wait_time_minutes,
         duration_minutes,
-        ROUND(wait_time_minutes::numeric / 60, 2) AS wait_time_hours, -- tiempo esperado en horas
-        ROUND(duration_minutes::numeric / 60, 2) AS duration_hours, -- duración cita en horas
+        ROUND(wait_time_minutes::numeric / 60, 2) AS wait_time_hours,
+        ROUND(duration_minutes::numeric / 60, 2) AS duration_hours,
         case
         when check_in_time is null then 'The patient did not show up to the appointment'
         else 'The patient attended the appointment'

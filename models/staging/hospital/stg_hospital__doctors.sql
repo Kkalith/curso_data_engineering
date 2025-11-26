@@ -10,8 +10,9 @@ renamed as (
 
     select
         {{ dbt_utils.generate_surrogate_key(['doctor_id']) }} as id_doctor,
-        first_name,
-        last_name,
+        {{ clean_string('first_name') }} || ' ' || {{ clean_string('last_name') }} as full_name,
+        {{ clean_string('first_name') }} as first_name,
+        {{ clean_string('last_name') }} as last_name,
         phone_number,
         years_experience,
         email,

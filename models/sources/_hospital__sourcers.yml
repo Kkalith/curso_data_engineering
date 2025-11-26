@@ -58,7 +58,7 @@ sources:
 
           - name: status
             data_type: varchar
-            description: "Current status of the appointment (Scheduled, Completed, Cancelled)."
+            description: "Current status of the appointment (Scheduled, Completed, Cancelled, No-Show)."
             data_tests:
               - accepted_values:
                   arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
@@ -83,22 +83,20 @@ sources:
             data_type: number
             description: "Minutes the patient waited before being attended."
             data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "wait_time_minutes >= 0"
+              - positive_values
 
           - name: duration_minutes
             data_type: number
             description: "Total duration of the appointment in minutes."
             data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "duration_minutes >= 0"
+              - posituve_values
 
           - name: cancel_reason
             data_type: varchar
             description: "Reason for cancellation of the appointment, if applicable."
             data_tests:
               - accepted_values:
-                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                  arguments:
                     values:
                       [
                         "Insurance issue",

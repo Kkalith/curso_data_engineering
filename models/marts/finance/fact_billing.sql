@@ -42,6 +42,8 @@ final AS (
         --t.id_treatment_type,
         pm.id_payment_method,
         dd.id_date,
+        t.id_treatment,
+
 
         -- Métricas del hecho
         b.amount_dolars,

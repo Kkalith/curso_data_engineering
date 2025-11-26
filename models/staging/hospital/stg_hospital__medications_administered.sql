@@ -15,6 +15,6 @@ expanded_medications_administered as (
 
 select
     {{ dbt_utils.generate_surrogate_key(['appointment_id','medications_administered']) }} as patient_medications_administered,
-    {{ dbt_utils.generate_surrogate_key(['appointment_id']) }} as id_patient,
-    medications_administered
+    {{ dbt_utils.generate_surrogate_key(['appointment_id']) }} as id_appointment,
+    {{ clean_string('medications_administered') }} as medications_administered
 from expanded_medications_administered

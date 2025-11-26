@@ -4,6 +4,7 @@ sources:
   - name: hospital
     description: ""
     tables:
+
       - name: stg_hospital__allergies
         description: ""
         columns:
@@ -56,18 +57,38 @@ sources:
           - name: id_cancel_reason
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__cancel_reason')
+                  field: id_cancel_reason
           - name: id_reason_for_visit
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__reason_for_visit')
+                  field: id_reason_for_visit
           - name: id_status_appointment
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                    to: ref('stg_hospital__status_appointment')
+                    field: id_status_appointment
           - name: id_patient
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__patients')
+                  field: id_patient
           - name: id_doctor
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__doctors')
+                  field: id_doctor
 
       - name: stg_hospital__available_days
         description: ""
@@ -130,12 +151,24 @@ sources:
           - name: id_patient
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__patients')
+                  field: id_patient
           - name: id_treatment
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__treatments')
+                  field: id_treatment
           - name: id_payment_method
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__payment_method')
+                  field: id_payment_method
 
       - name: stg_hospital__blood_type
         description: ""
@@ -228,12 +261,24 @@ sources:
           - name: id_specialization
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__specialization')
+                  field: id_specialization
           - name: id_hospital_branch
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__hospital_branch')
+                  field: id_hospital_branch
           - name: id_available_days
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_available_days')
+                  field: id_available_days
 
       - name: stg_hospital__hospital_branch
         description: ""
@@ -261,9 +306,13 @@ sources:
           - name: patient_medications_administered
             data_type: varchar
             description: ""
-          - name: id_patient
+          - name: id_appointment
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__appointment')
+                  field: id_appointment
           - name: medications_administered
             data_type: varchar
             description: ""
@@ -277,6 +326,10 @@ sources:
           - name: id_patient
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__patients')
+                  field: id_patient
           - name: allergy_name
             data_type: varchar
             description: ""
@@ -290,6 +343,10 @@ sources:
           - name: id_patient
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__patients')
+                  field: id_patient
           - name: chronic_conditions
             data_type: varchar
             description: ""
@@ -303,6 +360,10 @@ sources:
           - name: id_patient
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__patients')
+                  field: id_patient
           - name: current_medications
             data_type: varchar
             description: ""
@@ -358,9 +419,17 @@ sources:
           - name: id_insurance_provider
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__insurance_provider')
+                  field: id_insurance_provider
           - name: id_blood_type
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__blood_type')
+                  field: id_blood_type
 
       - name: stg_hospital__payment_method
         description: ""
@@ -454,6 +523,14 @@ sources:
           - name: id_appointment
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__appointment')
+                  field: id_appointment
           - name: id_treatment_type
             data_type: varchar
             description: ""
+            data_tests:
+              - relationships:
+                  to: ref('stg_hospital__treatment_type')
+                  field: id_treatment_type
