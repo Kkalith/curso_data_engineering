@@ -46,7 +46,7 @@ medications AS (
 final AS (
     SELECT
         p.id_patient,
-        p.full_name
+        p.full_name,
         p.gender,
         p.date_of_birth,
         p.age,

@@ -6,4 +6,4 @@
 SELECT *
 FROM {{ source('hospital','appointments') }}
 WHERE status = 'Completed'
-  AND check_in_time IS NULL;
+  AND check_in_time IS NULL

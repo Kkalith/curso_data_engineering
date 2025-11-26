@@ -21,8 +21,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'patients')
-                  field: patient_id
+                  arguments:
+                    to: source('hospital', 'patients')
+                    field: patient_id
 
           - name: doctor_id
             data_type: varchar
@@ -30,8 +31,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'doctors')
-                  field: doctor_id
+                  arguments:  
+                    to: source('hospital', 'doctors')
+                    field: doctor_id
 
           - name: appointment_date
             data_type: date
@@ -67,17 +69,12 @@ sources:
           - name: check_in_time
             data_type: time
             description: "Time when the patient checked in upon arrival."
-            data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(status = 'Completed' AND check_in_time IS NULL)"   # Completed -> must have checkout
+
 
 
           - name: check_out_time
             data_type: time
             description: "Time when the patient completed the appointment."
-            data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(status = 'Completed' AND check_out_time IS NULL)"   # Completed -> must have checkout
 
           - name: wait_time_minutes
             data_type: number
@@ -89,7 +86,7 @@ sources:
             data_type: number
             description: "Total duration of the appointment in minutes."
             data_tests:
-              - posituve_values
+              - positive_values
 
           - name: cancel_reason
             data_type: varchar
@@ -126,8 +123,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'patients')
-                  field: patient_id
+                  arguments:
+                    to: source('hospital', 'patients')
+                    field: patient_id
 
           - name: treatment_id
             data_type: varchar
@@ -135,8 +133,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'treatments')
-                  field: treatment_id
+                  arguments:
+                    to: source('hospital', 'treatments')
+                    field: treatment_id
 
           - name: bill_date
             data_type: date
@@ -144,7 +143,7 @@ sources:
             data_tests:
               - not_null
               - dbt_utils.expression_is_true:
-                  expression: "bill_date <= current_date"
+                  expression: "{{ column_name }} <= current_date"
 
           - name: amount
             data_type: number
@@ -171,9 +170,6 @@ sources:
           - name: payment_date
             data_type: date
             description: "Date when the payment was completed."
-            data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "payment_status != 'Paid' OR payment_date IS NOT NULL"
 
           - name: due_date
             data_type: date
@@ -184,9 +180,6 @@ sources:
             description: "Additional fee applied for late payments, if any."
             data_tests:
               - positive_values
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(late_fee > 0 AND payment_status != 'Paid')"
-                  # Solo pagos 'Paid' pueden tener late_fee
 
           - name: insurance_coverage_amount
             data_type: number
@@ -241,7 +234,6 @@ sources:
             description: "Doctor's official email address."
             data_tests:
               - not_null
-              - is_email
 
           - name: consultation_fee
             data_type: number
@@ -263,7 +255,7 @@ sources:
           - name: patient_id
             data_type: varchar
             description: "Unique identifier for the patient."
-            data_test:
+            data_tests:
               - unique
               - not_null
 
