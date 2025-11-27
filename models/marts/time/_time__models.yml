@@ -1,0 +1,78 @@
+version: 2
+
+sources:
+  - name: hospital
+    description: ""
+    database: alumno30_dev_gold_db
+    tables:
+
+      - name: time_analysis
+        description: ""
+        columns:
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: full_date
+            data_type: date
+            description: ""
+          - name: day_of_week
+            data_type: number
+            description: ""
+          - name: day_of_week_name
+            data_type: varchar
+            description: ""
+          - name: appointment_hour
+            data_type: number
+            description: ""
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: age
+            data_type: number
+            description: ""
+          - name: gender
+            data_type: varchar
+            description: ""
+          - name: blood_type
+            data_type: varchar
+            description: ""
+          - name: full_name
+            data_type: varchar
+            description: ""
+          - name: specialization
+            data_type: varchar
+            description: ""
+          - name: wait_time_minutes
+            data_type: number
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: total_time_minutes
+            data_type: number
+            description: ""
+          - name: check_in_time
+            data_type: time
+            description: ""
+          - name: check_out_time
+            data_type: time
+            description: ""
+
+      - name: top_3
+        description: ""
+        columns:
+          - name: category
+            data_type: varchar
+            description: ""
+          - name: id_doctor
+            data_type: varchar
+            description: ""
+          - name: full_name
+            data_type: varchar
+            description: ""
+          - name: specialization
+            data_type: varchar
+            description: ""
+          - name: avg_wait
+            data_type: number
+            description: ""

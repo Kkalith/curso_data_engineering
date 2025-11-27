@@ -17,10 +17,10 @@ renamed as (
         timestamp_from_parts(date_appointment, check_in_time) as appointment_check_in_time,
         check_out_time, 
         timestamp_from_parts(date_appointment, check_out_time) as appointment_check_out_time,
-        wait_time_minutes,
-        duration_minutes,
-        ROUND(wait_time_minutes::numeric / 60, 2) AS wait_time_hours,
-        ROUND(duration_minutes::numeric / 60, 2) AS duration_hours,
+        coalesce(wait_time_minutes, 0) as wait_time_minutes,
+        coalesce(duration_minutes, 0) as duration_minutes,
+        round(coalesce(wait_time_minutes, 0)::numeric / 60, 2) as wait_time_hours,
+        round(coalesce(duration_minutes, 0)::numeric / 60, 2) as duration_hours,
         case
         when check_in_time is null then 'The patient did not show up to the appointment'
         else 'The patient attended the appointment'

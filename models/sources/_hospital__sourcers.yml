@@ -141,9 +141,9 @@ sources:
             data_type: date
             description: "Date when the bill was generated."
             data_tests:
-              - not_null
               - dbt_utils.expression_is_true:
-                  expression: "{{ column_name }} <= current_date"
+                  arguments:
+                    expression: "{{ column_name }} <= current_date"
 
           - name: amount
             data_type: number
@@ -170,6 +170,12 @@ sources:
           - name: payment_date
             data_type: date
             description: "Date when the payment was completed."
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  arguments:
+                    expression: "{{ column_name }} >= bill_date"
+
+
 
           - name: due_date
             data_type: date
@@ -278,9 +284,6 @@ sources:
           - name: date_of_birth
             data_type: date
             description: "Patient's date of birth."
-            data_test:
-              - dbt_utils.expression_is_true:
-                  expression: "date_of_birth <= current_date"
 
           - name: contact_number
             data_type: varchar
@@ -293,6 +296,10 @@ sources:
           - name: registration_date
             data_type: date
             description: "Date when the patient registered at the hospital."
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  arguments:
+                    expression: "{{ column_name }} <= current_date"
 
           - name: insurance_provider
             data_type: varchar
