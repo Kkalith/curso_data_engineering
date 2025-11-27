@@ -12,7 +12,8 @@ WITH base AS (
         a.date_appointment,
         a.time_appointment,
         a.appointment_datetime,
-        check_in_time,
+        a.check_in_time,
+        a.check_out_time,
 
         
                 -- 
