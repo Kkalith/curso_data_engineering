@@ -1,0 +1,462 @@
+version: 2
+
+sources:
+  - name: hospital
+    description: ""
+    database: alumno30_dev_gold_db
+    tables:
+    
+      - name: dim_appointment_status
+        description: ""
+        columns:
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: status
+            data_type: varchar
+            description: ""
+          - name: appointment_category
+            data_type: varchar
+            description: ""
+          - name: cancel_reason
+            data_type: varchar
+            description: ""
+          - name: is_cancelation
+            data_type: boolean
+            description: ""
+          - name: reason_for_visit
+            data_type: varchar
+            description: ""
+
+      - name: dim_blood_type
+        description: ""
+        columns:
+          - name: id_blood_type
+            data_type: varchar
+            description: ""
+          - name: blood_type
+            data_type: varchar
+            description: ""
+          - name: blood_group
+            data_type: varchar
+            description: ""
+          - name: rh_factor
+            data_type: varchar
+            description: ""
+
+      - name: dim_date
+        description: ""
+        columns:
+          - name: id_date
+            data_type: varchar
+            description: ""
+          - name: date_day
+            data_type: date
+            description: ""
+          - name: prior_date_day
+            data_type: date
+            description: ""
+          - name: next_date_day
+            data_type: date
+            description: ""
+          - name: prior_year_date_day
+            data_type: date
+            description: ""
+          - name: prior_year_over_year_date_day
+            data_type: date
+            description: ""
+          - name: day_of_week
+            data_type: number
+            description: ""
+          - name: day_of_week_iso
+            data_type: number
+            description: ""
+          - name: day_of_week_name
+            data_type: varchar
+            description: ""
+          - name: day_of_week_name_short
+            data_type: varchar
+            description: ""
+          - name: day_of_month
+            data_type: number
+            description: ""
+          - name: day_of_year
+            data_type: number
+            description: ""
+          - name: week_start_date
+            data_type: date
+            description: ""
+          - name: week_end_date
+            data_type: date
+            description: ""
+          - name: prior_year_week_start_date
+            data_type: date
+            description: ""
+          - name: prior_year_week_end_date
+            data_type: date
+            description: ""
+          - name: week_of_year
+            data_type: number
+            description: ""
+          - name: iso_week_start_date
+            data_type: date
+            description: ""
+          - name: iso_week_end_date
+            data_type: date
+            description: ""
+          - name: prior_year_iso_week_start_date
+            data_type: date
+            description: ""
+          - name: prior_year_iso_week_end_date
+            data_type: date
+            description: ""
+          - name: iso_week_of_year
+            data_type: number
+            description: ""
+          - name: prior_year_week_of_year
+            data_type: number
+            description: ""
+          - name: prior_year_iso_week_of_year
+            data_type: number
+            description: ""
+          - name: month_of_year
+            data_type: number
+            description: ""
+          - name: month_name
+            data_type: varchar
+            description: ""
+          - name: month_name_short
+            data_type: varchar
+            description: ""
+          - name: month_start_date
+            data_type: date
+            description: ""
+          - name: month_end_date
+            data_type: date
+            description: ""
+          - name: prior_year_month_start_date
+            data_type: date
+            description: ""
+          - name: prior_year_month_end_date
+            data_type: date
+            description: ""
+          - name: quarter_of_year
+            data_type: number
+            description: ""
+          - name: quarter_start_date
+            data_type: date
+            description: ""
+          - name: quarter_end_date
+            data_type: date
+            description: ""
+          - name: year_number
+            data_type: number
+            description: ""
+          - name: year_start_date
+            data_type: date
+            description: ""
+          - name: year_end_date
+            data_type: date
+            description: ""
+
+      - name: dim_doctors
+        description: ""
+        columns:
+          - name: id_doctor
+            data_type: varchar
+            description: ""
+          - name: full_name
+            data_type: varchar
+            description: ""
+          - name: office_room
+            data_type: varchar
+            description: ""
+          - name: phone_number
+            data_type: varchar
+            description: ""
+          - name: email
+            data_type: varchar
+            description: ""
+          - name: years_experience
+            data_type: number
+            description: ""
+          - name: consultation_fee
+            data_type: number
+            description: ""
+          - name: specialization
+            data_type: varchar
+            description: ""
+          - name: hospital_branch
+            data_type: varchar
+            description: ""
+          - name: available_days
+            data_type: varchar
+            description: ""
+          - name: experience_rank_in_specialty
+            data_type: number
+            description: ""
+          - name: experience_level
+            data_type: varchar
+            description: ""
+          - name: consultation_fee_category
+            data_type: varchar
+            description: ""
+          - name: avg_fee_in_specialty
+            data_type: number
+            description: ""
+          - name: fee_vs_specialty_mean
+            data_type: number
+            description: ""
+
+      - name: dim_pago
+        description: ""
+        columns:
+          - name: id_pago
+            data_type: varchar
+            description: ""
+          - name: original_id
+            data_type: varchar
+            description: ""
+          - name: descripcion
+            data_type: varchar
+            description: ""
+          - name: tipo
+            data_type: varchar
+            description: ""
+
+      - name: dim_patients
+        description: ""
+        columns:
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: full_name
+            data_type: varchar
+            description: ""
+          - name: gender
+            data_type: varchar
+            description: ""
+          - name: date_of_birth
+            data_type: date
+            description: ""
+          - name: age
+            data_type: number
+            description: ""
+          - name: age_group
+            data_type: varchar
+            description: ""
+          - name: street_name
+            data_type: varchar
+            description: ""
+          - name: registration_date
+            data_type: date
+            description: ""
+          - name: insurance_number
+            data_type: varchar
+            description: ""
+          - name: medical_history_summary
+            data_type: varchar
+            description: ""
+          - name: insurance_provider
+            data_type: varchar
+            description: ""
+          - name: blood_type
+            data_type: varchar
+            description: ""
+          - name: allergies
+            data_type: varchar
+            description: ""
+          - name: chronic_conditions
+            data_type: varchar
+            description: ""
+          - name: current_medications
+            data_type: varchar
+            description: ""
+
+      - name: dim_payment_method
+        description: ""
+        columns:
+          - name: id_payment_method
+            data_type: varchar
+            description: ""
+          - name: payment_method
+            data_type: varchar
+            description: ""
+
+      - name: dim_treatments_details
+        description: ""
+        columns:
+          - name: id_treatment
+            data_type: varchar
+            description: ""
+          - name: description
+            data_type: varchar
+            description: ""
+          - name: cost_dolars
+            data_type: number
+            description: ""
+          - name: treatment_date
+            data_type: date
+            description: ""
+          - name: treatment_outcome
+            data_type: varchar
+            description: ""
+          - name: complications
+            data_type: varchar
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: equipment_used
+            data_type: varchar
+            description: ""
+          - name: risk_level
+            data_type: varchar
+            description: ""
+          - name: treatment_type
+            data_type: varchar
+            description: ""
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: treatment_year
+            data_type: number
+            description: ""
+          - name: treatment_month
+            data_type: number
+            description: ""
+          - name: treatment_week
+            data_type: number
+            description: ""
+          - name: treatment_day_type
+            data_type: varchar
+            description: ""
+          - name: has_complications
+            data_type: number
+            description: ""
+          - name: high_risk_flag
+            data_type: number
+            description: ""
+          - name: unsuccessful_flag
+            data_type: number
+            description: ""
+          - name: num_equipment_items
+            data_type: number
+            description: ""
+
+      - name: fct_appointments
+        description: ""
+        columns:
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: id_doctor
+            data_type: varchar
+            description: ""
+          - name: id_reason_for_visit
+            data_type: varchar
+            description: ""
+          - name: id_status_appointment
+            data_type: varchar
+            description: ""
+          - name: id_date
+            data_type: varchar
+            description: ""
+          - name: id_time
+            data_type: varchar
+            description: ""
+          - name: id_cancel_reason
+            data_type: varchar
+            description: ""
+          - name: date_appointment
+            data_type: date
+            description: ""
+          - name: time_appointment
+            data_type: time
+            description: ""
+          - name: appointment_datetime
+            data_type: timestamp_ntz
+            description: ""
+          - name: check_in_time
+            data_type: time
+            description: ""
+          - name: check_out_time
+            data_type: time
+            description: ""
+          - name: wait_time_minutes
+            data_type: number
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: wait_time_hours
+            data_type: number
+            description: ""
+          - name: duration_hours
+            data_type: number
+            description: ""
+
+      - name: fct_billing
+        description: ""
+        columns:
+          - name: id_bill
+            data_type: varchar
+            description: ""
+          - name: id_patient
+            data_type: varchar
+            description: ""
+          - name: id_payment_method
+            data_type: varchar
+            description: ""
+          - name: id_treatment
+            data_type: varchar
+            description: ""
+          - name: amount_dolars
+            data_type: number
+            description: ""
+          - name: payments_days
+            data_type: number
+            description: ""
+          - name: billing_delay_days
+            data_type: number
+            description: ""
+          - name: late_fee_dolars
+            data_type: number
+            description: ""
+          - name: insurance_coverage_amount
+            data_type: number
+            description: ""
+          - name: patient_payment_amount
+            data_type: number
+            description: ""
+          - name: total_amount
+            data_type: number
+            description: ""
+          - name: id_date
+            data_type: varchar
+            description: ""
+
+      - name: fct_treatments
+        description: ""
+        columns:
+          - name: id_treatment
+            data_type: varchar
+            description: ""
+          - name: id_treatment_type
+            data_type: varchar
+            description: ""
+          - name: id_appointment
+            data_type: varchar
+            description: ""
+          - name: cost_dolars
+            data_type: number
+            description: ""
+          - name: duration_minutes
+            data_type: number
+            description: ""
+          - name: id_date
+            data_type: varchar
+            description: ""

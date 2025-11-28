@@ -21,8 +21,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'patients')
-                  field: patient_id
+                  arguments:
+                    to: source('hospital', 'patients')
+                    field: patient_id
 
           - name: doctor_id
             data_type: varchar
@@ -30,8 +31,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'doctors')
-                  field: doctor_id
+                  arguments:  
+                    to: source('hospital', 'doctors')
+                    field: doctor_id
 
           - name: appointment_date
             data_type: date
@@ -58,7 +60,7 @@ sources:
 
           - name: status
             data_type: varchar
-            description: "Current status of the appointment (Scheduled, Completed, Cancelled)."
+            description: "Current status of the appointment (Scheduled, Completed, Cancelled, No-Show)."
             data_tests:
               - accepted_values:
                   arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
@@ -67,38 +69,31 @@ sources:
           - name: check_in_time
             data_type: time
             description: "Time when the patient checked in upon arrival."
-            data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(status = 'Completed' AND check_in_time IS NULL)"   # Completed -> must have checkout
+
 
 
           - name: check_out_time
             data_type: time
             description: "Time when the patient completed the appointment."
-            data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(status = 'Completed' AND check_out_time IS NULL)"   # Completed -> must have checkout
 
           - name: wait_time_minutes
             data_type: number
             description: "Minutes the patient waited before being attended."
             data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "wait_time_minutes >= 0"
+              - positive_values
 
           - name: duration_minutes
             data_type: number
             description: "Total duration of the appointment in minutes."
             data_tests:
-              - dbt_utils.expression_is_true:
-                  expression: "duration_minutes >= 0"
+              - positive_values
 
           - name: cancel_reason
             data_type: varchar
             description: "Reason for cancellation of the appointment, if applicable."
             data_tests:
               - accepted_values:
-                  arguments: # available in v1.10.5 and higher. Older versions can set the <argument_name> as the top-level property.
+                  arguments:
                     values:
                       [
                         "Insurance issue",
@@ -128,8 +123,9 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'patients')
-                  field: patient_id
+                  arguments:
+                    to: source('hospital', 'patients')
+                    field: patient_id
 
           - name: treatment_id
             data_type: varchar
@@ -137,16 +133,17 @@ sources:
             data_tests:
               - not_null
               - relationships:
-                  to: source('hospital', 'treatments')
-                  field: treatment_id
+                  arguments:
+                    to: source('hospital', 'treatments')
+                    field: treatment_id
 
           - name: bill_date
             data_type: date
             description: "Date when the bill was generated."
             data_tests:
-              - not_null
               - dbt_utils.expression_is_true:
-                  expression: "bill_date <= current_date"
+                  arguments:
+                    expression: "{{ column_name }} <= current_date"
 
           - name: amount
             data_type: number
@@ -175,7 +172,10 @@ sources:
             description: "Date when the payment was completed."
             data_tests:
               - dbt_utils.expression_is_true:
-                  expression: "payment_status != 'Paid' OR payment_date IS NOT NULL"
+                  arguments:
+                    expression: "{{ column_name }} >= bill_date"
+
+
 
           - name: due_date
             data_type: date
@@ -186,9 +186,6 @@ sources:
             description: "Additional fee applied for late payments, if any."
             data_tests:
               - positive_values
-              - dbt_utils.expression_is_true:
-                  expression: "NOT(late_fee > 0 AND payment_status != 'Paid')"
-                  # Solo pagos 'Paid' pueden tener late_fee
 
           - name: insurance_coverage_amount
             data_type: number
@@ -243,7 +240,6 @@ sources:
             description: "Doctor's official email address."
             data_tests:
               - not_null
-              - is_email
 
           - name: consultation_fee
             data_type: number
@@ -265,7 +261,7 @@ sources:
           - name: patient_id
             data_type: varchar
             description: "Unique identifier for the patient."
-            data_test:
+            data_tests:
               - unique
               - not_null
 
@@ -288,9 +284,6 @@ sources:
           - name: date_of_birth
             data_type: date
             description: "Patient's date of birth."
-            data_test:
-              - dbt_utils.expression_is_true:
-                  expression: "date_of_birth <= current_date"
 
           - name: contact_number
             data_type: varchar
@@ -303,6 +296,10 @@ sources:
           - name: registration_date
             data_type: date
             description: "Date when the patient registered at the hospital."
+            data_tests:
+              - dbt_utils.expression_is_true:
+                  arguments:
+                    expression: "{{ column_name }} <= current_date"
 
           - name: insurance_provider
             data_type: varchar

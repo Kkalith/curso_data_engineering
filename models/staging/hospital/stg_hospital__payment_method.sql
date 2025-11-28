@@ -10,7 +10,7 @@ renamed as (
 
     select distinct
         {{ dbt_utils.generate_surrogate_key(['payment_method']) }} as id_payment_method,
-        payment_method
+        {{ clean_string('payment_method') }} as payment_method
 
     from src_payment_method
 

@@ -10,14 +10,7 @@ renamed as (
 
     select distinct
         {{ dbt_utils.generate_surrogate_key(['reason_for_visit']) }} as id_reason_for_visit,
-       {{ clean_string('reason_for_visit') }} as reason_for_visit,
-       CASE 
-            WHEN {{ clean_string('reason_for_visit') }} IN ('emergency') THEN 'urgent'
-            WHEN {{ clean_string('reason_for_visit') }} IN ('consultation','follow-up') THEN 'routine'
-            WHEN {{ clean_string('reason_for_visit') }} IN ('therapy') THEN 'treatment'
-            ELSE 'other'
-        END AS reason_category
-
+       {{ clean_string('reason_for_visit') }} as reason_for_visit
     from src_reason_for_visit
 
 )

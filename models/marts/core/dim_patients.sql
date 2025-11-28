@@ -1,33 +1,21 @@
--- ============================
--- 1. BASE PATIENTS TABLE
--- ============================
 WITH patients AS (
     SELECT
     *
     FROM {{ ref('stg_hospital__patients') }}
 ),
 
--- ============================
--- 2. BLOOD TYPE LOOKUP
--- ============================
 blood_type AS (
     SELECT
     *
     FROM {{ ref('stg_hospital__blood_type') }}
 ),
 
--- ============================
--- 3. INSURANCE PROVIDER LOOKUP
--- ============================
 insurance AS (
     SELECT
     *
     FROM {{ ref('stg_hospital__insurance_provider') }}
 ),
 
--- ============================
--- 4. ALLERGIES (1:N → agrega)
--- ============================
 allergies AS (
     SELECT
         id_patient,
@@ -37,9 +25,6 @@ allergies AS (
     GROUP BY id_patient
 ),
 
--- ============================
--- 5. CHRONIC CONDITIONS (1:N)
--- ============================
 conditions AS (
     SELECT
         id_patient,
@@ -49,9 +34,6 @@ conditions AS (
     GROUP BY id_patient
 ),
 
--- ============================
--- 6. MEDICATIONS (1:N)
--- ============================
 medications AS (
     SELECT
         id_patient,
@@ -61,12 +43,10 @@ medications AS (
     GROUP BY id_patient
 ),
 
--- ============================
--- 7. FINAL JOIN
--- ============================
 final AS (
     SELECT
         p.id_patient,
+        p.full_name,
         p.gender,
         p.date_of_birth,
         p.age,

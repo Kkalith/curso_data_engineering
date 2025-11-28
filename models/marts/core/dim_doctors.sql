@@ -1,27 +1,21 @@
-{{ config(materialized="table") }}
-
--- 1. DOCTORS BASE TABLE
 WITH doctors AS (
     SELECT
     *
     FROM {{ ref('stg_hospital__doctors') }}
 ),
 
--- 2. SPECIALIZATION (1:1)
 specialization AS (
     SELECT
     *
     FROM {{ ref('stg_hospital__specialization') }}
 ),
 
--- 3. HOSPITAL BRANCH (1:1)
 branch AS (
     SELECT
         *
     FROM {{ ref('stg_hospital__hospital_branch') }}
 ),
 
--- 4. AVAILABLE DAYS (1:N → agregación)
 available_days AS (
     SELECT
         id_available_days,
@@ -31,20 +25,20 @@ available_days AS (
     GROUP BY id_available_days
 ),
 
--- 5. FINAL JOIN
 final AS (
     SELECT
         d.id_doctor,
+        d.full_name,
         d.office_room,
+        d.phone_number,
+        d.email,
         d.years_experience,
         d.consultation_fee,
 
-        -- LOOKUPS
         s.specialization,
         b.hospital_branch,
         ad.available_days,
 
-        -- ⭐ 1. Ranking por experiencia dentro de la especialidad
         RANK() OVER (
             PARTITION BY s.specialization
             ORDER BY d.years_experience DESC
@@ -57,7 +51,6 @@ final AS (
             ELSE 'Expert'
         END AS experience_level,
 
-        -- ⭐ 3. Bucket de coste (barato/medio/caro dentro de la especialidad)
         CASE 
             WHEN NTILE(3) OVER (
                     PARTITION BY s.specialization
@@ -73,12 +66,10 @@ final AS (
                 ) = 3 THEN 'High'
         END AS consultation_fee_category,
 
-        -- ⭐ 4. Media del coste por especialidad
         AVG(d.consultation_fee) OVER (
             PARTITION BY s.specialization
         ) AS avg_fee_in_specialty,
 
-        -- ⭐ 5. Diferencia contra la media
         d.consultation_fee
         - AVG(d.consultation_fee) OVER (
             PARTITION BY s.specialization
