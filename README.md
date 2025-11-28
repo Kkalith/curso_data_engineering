@@ -82,7 +82,7 @@ Para mejorar la calidad analítica del dataset, se han añadido nuevas columnas 
 
 A continuación se muestra el diagrama ER que representa la estructura original del dataset en la capa Bronze:
 
-![Bronze Diagram](./BRONCE.png)
+![Bronze Diagram](./Bronce.png)
 
 ---
 
@@ -133,7 +133,7 @@ Se emplean macros auxiliares para mantener consistencia y reutilizar lógica:
 
 - **`generate_surrogate_key()`** 
 
-![Silver Diagram](./SILVER.png)
+![Silver Diagram](./Silver.png)
 
 ---
 ## 🥇 3. Gold Layer — Modelado Dimensional (Star Schema)
@@ -174,7 +174,7 @@ Las métricas y eventos del hospital se recopilan en tablas de hechos:
 
 La granularidad de cada tabla está definida por evento: cita, tratamiento o factura.
 
-![GOLD](./GOLD.png)
+![GOLD](./Gold.png)
 
 ## 📈 Caso de uso final: análisis del tiempo promedio de espera
 
@@ -190,4 +190,4 @@ Como aplicación práctica del pipeline, se desarrolló un análisis completo de
 
 Finalmente, los modelos Gold se conectan a un dashboard en Power BI, donde se visualizan métricas clave:
 
-![Power BI](./PBI.png)
+![PowerBI](./PowerBI.jpg)
