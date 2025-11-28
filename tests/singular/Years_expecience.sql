@@ -2,4 +2,4 @@
 
 select *
 from {{ source('hospital', 'doctors') }}
-where years_experience > 60
+where years_experience > 70
