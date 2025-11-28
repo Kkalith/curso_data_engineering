@@ -62,6 +62,8 @@ final AS (
         p.medical_history_summary,
         ins.insurance_provider,
         bt.blood_type,
+        bt.blood_group,
+        bt.rh_factor,
         a.allergies,
         c.chronic_conditions,
         m.current_medications

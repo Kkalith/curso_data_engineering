@@ -28,22 +28,6 @@ sources:
             data_type: varchar
             description: ""
 
-      - name: dim_blood_type
-        description: ""
-        columns:
-          - name: id_blood_type
-            data_type: varchar
-            description: ""
-          - name: blood_type
-            data_type: varchar
-            description: ""
-          - name: blood_group
-            data_type: varchar
-            description: ""
-          - name: rh_factor
-            data_type: varchar
-            description: ""
-
       - name: dim_date
         description: ""
         columns:

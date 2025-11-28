@@ -2,23 +2,11 @@ WITH src AS (
     SELECT
         t.id_treatment,
         t.description,
-        t.cost_dolars,
-        t.treatment_date,
         t.treatment_outcome,
         t.complications,
-        t.duration_minutes,
         t.equipment_used,
         t.risk_level,
-
-        -- denormalized lookup
         tt.treatment_type,
-
-        -- keep appointment context
-        t.id_appointment,
-
-        ------------------------------
-        -- (1) DATE DERIVED ATTRIBUTES
-        ------------------------------
         DATE_PART(year, t.treatment_date)  AS treatment_year,
         DATE_PART(month, t.treatment_date) AS treatment_month,
         DATE_PART(week, t.treatment_date)  AS treatment_week,
@@ -28,9 +16,6 @@ WITH src AS (
             ELSE 'weekday' 
         END AS treatment_day_type,
 
-        ------------------------------
-        -- (3) FLAGS
-        ------------------------------
         CASE 
             WHEN t.complications IS NULL OR t.complications = '' 
             THEN 0 ELSE 1 
@@ -46,9 +31,6 @@ WITH src AS (
             THEN 1 ELSE 0 
         END AS unsuccessful_flag,
 
-        ------------------------------
-        -- (8) EQUIPMENT COUNT
-        ------------------------------
         CASE 
             WHEN t.equipment_used IS NULL OR t.equipment_used = '' THEN 0
             ELSE LENGTH(t.equipment_used) - LENGTH(REPLACE(t.equipment_used, ',', '')) + 1

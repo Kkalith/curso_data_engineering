@@ -17,14 +17,6 @@ top3_max AS (
         *,
         ROW_NUMBER() OVER (ORDER BY avg_wait DESC) AS rn
     FROM base
-),
-
--- TOP 3 con MENOR tiempo de espera
-top3_min AS (
-    SELECT
-        *,
-        ROW_NUMBER() OVER (ORDER BY avg_wait ASC) AS rn
-    FROM base
 )
 
 SELECT
@@ -34,15 +26,4 @@ SELECT
     specialization,
     avg_wait
 FROM top3_max
-WHERE rn <= 3
-
-UNION ALL
-
-SELECT
-    'TOP_3_MIN' AS category,
-    id_doctor,
-    full_name,
-    specialization,
-    avg_wait
-FROM top3_min
 WHERE rn <= 3
